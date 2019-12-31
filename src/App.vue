@@ -9,7 +9,6 @@
     <button @click="send()">Send</button>
     <button @click="closeWebSocket()">Close</button>
     <button @click="goLogin()">Sign In</button>
-    <router-link to='/src/templates/login.html'><button>点我到第二个页面</button></router-link>
     <div id="message"></div>
     <router-view/>
   </div>
