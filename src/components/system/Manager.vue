@@ -41,7 +41,8 @@
       <el-menu-item index="1-4-1">选项1</el-menu-item>
     </el-submenu>
   </el-submenu>
-</el-menu>
+  </el-menu>
+  <router-view/>
   </div>
 </template>
 <script>
@@ -53,13 +54,13 @@
     },
     methods: {
       handleOpen(key, keyPath) {
-        console.log(key, keyPath);
+        // console.log(key, keyPath);
       },
       handleClose(key, keyPath) {
-        console.log(key, keyPath);
+        // console.log(key, keyPath);
       },
       handleSelect(key,keypath){
-        alert("rs")
+        // console.log(key,keypath)
         console.log(key,keypath)
       }
     }
