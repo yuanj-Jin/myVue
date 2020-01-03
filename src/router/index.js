@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Login from '../components/Login'
+import Manager from '../components/system/Manager'
+import Home from '../components/system/Home'
 import App from '@/App'
 import ElementUi from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
@@ -17,18 +18,24 @@ Vue.use(Router)
 
 
 export default new Router({
-  mode:'history',
+  // mode:'history',
   routes: [
     {
       path: '/',
-      name: 'App',
-      component: App
+      name: 'Home',
+      component: Home
     }
     ,
     {
-      path: '/goLogin',
+      path: '/manager',
       name: 'login',
-      component: Login
+      component: Manager
+    }
+    ,
+    {
+      path: '/home',
+      name: 'home',
+      component: Home
     }
 
   ]
