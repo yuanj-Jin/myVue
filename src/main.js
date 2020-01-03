@@ -3,8 +3,8 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import Manager from './components/Manager'
-import Home from './components/Home'
+import Manager from './components/system/Manager'
+import Home from './components/system/Home'
 // import ElementUI from 'elemet-ui'
 // import "element-ui/lib/theme-chalk/index.css"
 
@@ -15,6 +15,6 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
-  components: { App,Home },
+  components: { App,Home},
   template: '<App/>'
 })
