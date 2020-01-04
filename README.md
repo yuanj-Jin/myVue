@@ -1,7 +1,8 @@
-# vue
 
+function: 为myProject项目开发的vue前端项目
 > author:yuanj
 
+# vue
 ## Build Setup
 
 ``` bash
