@@ -31,25 +31,25 @@ export default new Router({
     {
       path: '/manager',
       name: 'login',
-      component: Manager
+      component: Manager,
+      children:[
+        {
+          name:'4-1',
+          path:"4-1",
+          component:User
+        },
+        {
+          name:'4-2',
+          path:'4-2',
+          component:Role
+        }
+      ]
     }
     ,
     {
       path: '/home',
       name: 'home',
       component: Home
-    }
-    ,
-    {
-      path: '/4-1',
-      name: '4-1',
-      component: User
-    }
-    ,
-    {
-      path: '/4-2',
-      name: '4-2',
-      component: Role
     }
 
   ]

@@ -1,5 +1,4 @@
 <template>
-<nav>
   <el-main>
     <el-table :data="tableData">
       <el-table-column prop="id" label="日期" width="140"></el-table-column>
@@ -17,7 +16,6 @@
       </el-table-column>
     </el-table>
   </el-main>
-  </nav>
 </template>
 
 <script>
