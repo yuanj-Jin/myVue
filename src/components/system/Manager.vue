@@ -1,8 +1,8 @@
 <template>
   <el-container style="height: 500px; border: 1px solid #eee">
     <!-- <el-aside width="200px" style=""> -->
-      
-    <div class="login">
+
+    <div class="manager">
       <el-header style="text-align: right; font-size: 12px; background:purple">
         <el-dropdown>
           <i class="el-icon-setting" style="margin-right: 15px"></i>
@@ -47,77 +47,48 @@
             <span slot="title">导航四</span>
           </template>
           <el-menu-item-group>
-            <span slot="title">分组一</span>
-            <el-menu-item index="4-1">选项1</el-menu-item>
-            <el-menu-item index="4-2">选项2</el-menu-item>
+            <span slot="title">系统管理</span>
+            <el-menu-item index="4-1">
+              <router-link v-bind:to="mainBody" tag="span">用户</router-link>
+            </el-menu-item>
+            <el-menu-item index="4-2">
+              <router-link v-bind:to="mainBody" tag="span">角色</router-link>
+            </el-menu-item>
+            <el-menu-item index="4-3">
+              <router-link v-bind:to="mainBody" tag="span">权限</router-link>
+            </el-menu-item>
           </el-menu-item-group>
-          <el-menu-item-group title="分组2">
-            <el-menu-item index="4-3">选项3</el-menu-item>
+          <el-menu-item-group>
+            <span slot="title">系统字典</span>
+            <el-menu-item index="4-4">你猜...</el-menu-item>
           </el-menu-item-group>
-          <el-submenu index="4-4">
-            <span slot="title">选项4</span>
-            <el-menu-item index="1-4-1">选项1</el-menu-item>
-          </el-submenu>
         </el-submenu>
       </el-menu>
       <router-view />
     </div>
+    <router-view></router-view>
     <!-- </el-aside> -->
-
     <el-container>
-      <!-- <el-header style="text-align: right; font-size: 12px">
-        <el-dropdown>
-          <i class="el-icon-setting" style="margin-right: 15px"></i>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>查看</el-dropdown-item>
-            <el-dropdown-item>新增</el-dropdown-item>
-            <el-dropdown-item>删除</el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
-        <span>王小虎</span>
-      </el-header> -->
-
-      <el-main>
-        <el-table :data="tableData">
-          <el-table-column prop="date" label="日期" width="140"></el-table-column>
-          <el-table-column prop="name" label="姓名" width="120"></el-table-column>
-          <el-table-column prop="address" label="地址"></el-table-column>
-          <el-table-column
-      align="right">
-      <template slot="header" slot-scope="scope">
-        <el-input
-          v-model="search"
-          size="mini"
-          placeholder="输入关键字搜索"/>
-      </template>
-      <template slot-scope="scope">
-        <el-button
-          size="mini"
-          @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
-        <el-button
-          size="mini"
-          type="danger"
-          @click="handleDelete(scope.$index, scope.row)">Delete</el-button>
-      </template>
-    </el-table-column>
-        </el-table>
-      </el-main>
+        <router-view></router-view>
     </el-container>
   </el-container>
 </template>
 
 <script>
+import User from "./User";
+import Role from "./Role";
+
 export default {
+  components: {
+    "table-user": User,
+    "table-role": Role
+  },
   data() {
-    const item = {
-      date: "2016-05-02",
-      name: "王小虎",
-      address: "上海市普陀区金沙江路 1518 弄"
-    };
     return {
-      tableData: Array(20).fill(item),
       isCollapse: true,
-      search:''
+      search: "",
+      // mainBody: "<table-user></table-user>"
+      mainBody: "/4-1"
     };
   },
   methods: {
@@ -129,7 +100,9 @@ export default {
     },
     handleSelect(key, keypath) {
       // console.log(key,keypath)
-      console.log(key, keypath);
+      // this.mainBody="<table-role></table-role>"
+      console.log(key);
+      this.mainBody = key;
     }
   }
 };

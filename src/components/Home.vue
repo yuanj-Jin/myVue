@@ -34,7 +34,7 @@ export default {
     },
     goManager:function(){
       // window.location.href = "/auth/goLogin";
-      this.$router.replace('/manager')
+      this.$router.push('/manager')
       // this.$router.push({
       //   path:"/src/templates/login.html"
       // })
