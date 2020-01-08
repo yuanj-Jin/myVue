@@ -3,7 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import Manager from './components/system/Manager'
+// import Manager from './components/system/Manager'
 import Home from './components/system/Home'
 // import ElementUI from 'elemet-ui'
 // import "element-ui/lib/theme-chalk/index.css"
