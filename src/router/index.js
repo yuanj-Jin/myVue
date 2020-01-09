@@ -5,6 +5,7 @@ import Home from '../components/Home'
 import App from '@/App'
 import ElementUi from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import '../global.css'
 
 import Role from '../components/system/Role'
 import User from '../components/system/User'

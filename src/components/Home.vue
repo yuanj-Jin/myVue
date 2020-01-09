@@ -6,10 +6,10 @@
     <br />即时消息对话
     <br />
     <input id="text" type="text" />
-    <button @click="send()">按'Enter'键发送消息</button>
-    <button @click="closeWebSocket()">关闭会话</button>
-    <button @click="goLogin()">Sign In</button>
-    <button @click="goManager()">Manager</button>
+    <el-button @click="send()">按'Enter'键发送消息</el-button>
+    <el-button @click="closeWebSocket()">关闭会话</el-button>
+    <el-button type="success" @click="goLogin()" circle>Sign In</el-button>
+    <el-button type="success" @click="goManager()">Manager</el-button>
     <div id="message"></div>
   </div>
 </template>
@@ -17,10 +17,10 @@
 <script>
 
 export default {
-  
- 
   data: function() {
     return {
+      username:'yuanj',
+      password:'123',
       count: 0
     };
   },
@@ -39,9 +39,22 @@ export default {
       //   path:"/src/templates/login.html"
       // })
     },
-    goLogin:function(){
-      alert("无法登录 ")
-    }
+     goLogin() {
+        this.$alert(" <input :value='username' type='text' />", 'UserName', {
+          confirmButtonText: 'Next',
+          dangerouslyUseHTMLString:true,
+          callback: action => {
+            // this.$message({
+            //   type: 'info',
+            //   message: `action: ${ action }`
+            // });
+            this.$alert("<input :value='password' type='password' />",'PassWord',{
+              confirmButtonText:'confirm',
+              dangerouslyUseHTMLString:true,
+            })
+          }
+        });
+      }
   }
 };
 
@@ -110,12 +123,5 @@ function send() {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
-}
-html,
-body {
-  height: 100%;
-  margin: 0;
-  background: rgba(0, 0, 0, 0);
 }
 </style>
