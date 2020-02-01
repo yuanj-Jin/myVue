@@ -9,6 +9,9 @@ import '../global.css'
 
 import Role from '../components/system/Role'
 import User from '../components/system/User'
+
+import UserName from "../components/login/UserName";
+import PassWord from "../components/login/PassWord";
 // import '@/theme-et/index.css'
 Vue.use(ElementUi)
 
@@ -26,7 +29,20 @@ export default new Router({
     {
       path: '/',
       name: 'Home',
-      component: Home
+      component: Home,
+      children:[
+        {
+          path: '/home',
+          name: 'home',
+          component: Home
+        }
+        ,
+        {
+          path:'/username',
+          name:'username',
+          component: UserName
+        }
+      ]
     }
     ,
     {
@@ -46,12 +62,7 @@ export default new Router({
         }
       ]
     }
-    ,
-    {
-      path: '/home',
-      name: 'home',
-      component: Home
-    }
 
+    
   ]
 })

@@ -1,26 +1,53 @@
 <template>
   <div id="home">
-    <!-- <img src="./assets/logo.png"> -->
-    <h1>YuanJing</h1>
-    <button v-on:click="count++">You clicked me {{ count }} times.</button>
-    <br />即时消息对话
-    <br />
-    <input id="text" type="text" />
-    <el-button @click="send()">按'Enter'键发送消息</el-button>
-    <el-button @click="closeWebSocket()">关闭会话</el-button>
-    <el-button type="success" @click="goLogin()" circle>Sign In</el-button>
-    <el-button type="success" @click="goManager()">Manager</el-button>
-    <div id="message"></div>
+    <el-row>
+      <el-col :span="22">
+        <div class="grid-content bg-purple">
+          <!-- <img src="./assets/logo.png"> -->
+          <h1>YuanJing</h1>
+          <button v-on:click="count++">You clicked me {{ count }} times.</button>
+          <br />即时消息对话
+          <br />
+          <input id="text" type="text" />
+          <el-button @click="send()">按'Enter'键发送消息</el-button>
+          <el-button @click="closeWebSocket()">关闭会话</el-button>
+          
+         
+          <div id="message"></div>
+
+        </div>
+      </el-col>
+      <!--右侧侧边栏-->
+      <el-col :span="2" style="background:red">
+        <div class="grid-content bg-purple-light">
+          <!--右侧侧边栏使用树形菜单-->
+          <div class="manager">
+            <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
+              <el-button type="success" @click="goLogin()" icon="el-icon-user-solid">{{username}}</el-button>
+              
+            </el-radio-group>
+            <div>
+              <el-button type="success" @click="goManager()">Manager</el-button>
+            </div>
+          </div>
+        </div>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
 <script>
-
+import UserName from "./login/UserName";
+import PassWord from "./login/PassWord";
 export default {
+  components: {
+    "user-name": UserName,
+    "pass-word": PassWord
+  },
   data: function() {
     return {
-      username:'yuanj',
-      password:'123',
+      username: "",
+      password: "",
       count: 0
     };
   },
@@ -29,32 +56,53 @@ export default {
       var message = document.getElementById("text").value;
       websocket.send(message);
     },
-    closeWebSocket:function(){
+    closeWebSocket: function() {
       websocket.close();
     },
-    goManager:function(){
+    goManager: function() {
       // window.location.href = "/auth/goLogin";
-      this.$router.push('/manager')
+      this.$router.push("/manager");
       // this.$router.push({
       //   path:"/src/templates/login.html"
       // })
     },
-     goLogin() {
-        this.$alert(" <input :value='username' type='text' />", 'UserName', {
-          confirmButtonText: 'Next',
-          dangerouslyUseHTMLString:true,
-          callback: action => {
-            // this.$message({
-            //   type: 'info',
-            //   message: `action: ${ action }`
-            // });
-            this.$alert("<input :value='password' type='password' />",'PassWord',{
-              confirmButtonText:'confirm',
-              dangerouslyUseHTMLString:true,
+    goLogin() {
+      this.$prompt("请输入用户名：", "登录", {
+        confirmButtonText: "Next",
+        dangerouslyUseHTMLString: true
+      }).then(({ value }) => {
+        this.username = value;
+        this.$prompt("用户名：" + value + "<br>请输入密码：", "登录", {
+          dangerouslyUseHTMLString: true,
+          confirmButtonText: "confirm"
+        }).then(({ value }) => {
+          this.password = value;
+          console.log(this.username + "|" + this.password);
+
+          // this.$http({
+          //   method:'POST',
+          //   url:'http://10.21.26.91:5260/auth/signIn',
+          //   data:{'userName':this.username,'passWord':this.password},
+          // }). then((res) =>{
+          //   alert("sss")
+          // });
+          this.$axios
+            .get("/api/auth/doLogin?userName=youj&passWord=123", {
+              params: {
+                passWord: this.passWord,
+                userName: this.username
+              }
             })
-          }
+            .then(resp => {
+              console.log(resp.data);
+            })
+            .catch(err => {
+              console.log("请求失败：" + err.status + "," + err.statusText);
+            });
         });
-      }
+      });
+    },
+
   }
 };
 
@@ -113,7 +161,6 @@ function send() {
   var message = document.getElementById("text").value;
   websocket.send(message);
 }
-
 </script>
 
 <style>
