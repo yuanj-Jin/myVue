@@ -12,9 +12,9 @@ import User from '../components/system/User'
 
 import UserName from "../components/login/UserName";
 import PassWord from "../components/login/PassWord";
+import RoatateAlbum from "../components/album/RotateAlbum";
 // import '@/theme-et/index.css'
 Vue.use(ElementUi)
-
 
 Vue.use(Router)
 // const Login = () =>
@@ -61,6 +61,11 @@ export default new Router({
           component:Role
         }
       ]
+    },
+    {
+      path: '/album',
+      name: 'album',
+      component: RoatateAlbum,
     }
 
     

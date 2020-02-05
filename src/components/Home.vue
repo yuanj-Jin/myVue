@@ -16,15 +16,18 @@
         </div>
       </el-col>
       <!--右侧侧边栏-->
-      <el-col :span="2" style="background:red">
+      <el-col :span="2" style="background:">
         <div class="grid-content bg-purple-light">
           <!--右侧侧边栏使用树形菜单-->
           <div class="manager">
             <el-radio-group  style="margin-bottom: 20px;">
-              <el-button type="success" @click="goLogin()" icon="el-icon-user-solid">{{realname}}</el-button>
+              <el-button type="none" @click="goLogin()" icon="el-icon-user-solid">{{realname}}</el-button>
             </el-radio-group>
             <div>
-              <el-button type="success" @click="goManager()">Manager</el-button>
+              <el-button type="none" @click="goManager()">Manager</el-button>
+            </div>
+            <div>
+              <el-button type="none" @click="goRotateAlbum()">Album</el-button>
             </div>
           </div>
         </div>
@@ -64,6 +67,9 @@ export default {
       // this.$router.push({
       //   path:"/src/templates/login.html"
       // })
+    },
+    goRotateAlbum:function(){
+      this.$router.push("/album");
     },
     goLogin() {
       this.$prompt("请输入用户名：", "登录", {
