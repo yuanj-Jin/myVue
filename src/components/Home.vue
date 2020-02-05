@@ -11,10 +11,8 @@
           <input id="text" type="text" />
           <el-button @click="send()">按'Enter'键发送消息</el-button>
           <el-button @click="closeWebSocket()">关闭会话</el-button>
-          
-         
-          <div id="message"></div>
 
+          <div id="message"></div>
         </div>
       </el-col>
       <!--右侧侧边栏-->
@@ -22,9 +20,8 @@
         <div class="grid-content bg-purple-light">
           <!--右侧侧边栏使用树形菜单-->
           <div class="manager">
-            <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
-              <el-button type="success" @click="goLogin()" icon="el-icon-user-solid">{{username}}</el-button>
-              
+            <el-radio-group  style="margin-bottom: 20px;">
+              <el-button type="success" @click="goLogin()" icon="el-icon-user-solid">{{realname}}</el-button>
             </el-radio-group>
             <div>
               <el-button type="success" @click="goManager()">Manager</el-button>
@@ -37,6 +34,7 @@
 </template>
 
 <script>
+import qs from 'qs'
 import UserName from "./login/UserName";
 import PassWord from "./login/PassWord";
 export default {
@@ -46,6 +44,7 @@ export default {
   },
   data: function() {
     return {
+      realname: "",
       username: "",
       password: "",
       count: 0
@@ -86,23 +85,20 @@ export default {
           // }). then((res) =>{
           //   alert("sss")
           // });
+          let data=qs.stringify({passWord: this.password,userName: this.username});
           this.$axios
-            .get("/api/auth/doLogin?userName=youj&passWord=123", {
-              params: {
-                passWord: this.passWord,
-                userName: this.username
-              }
-            })
+            .post("/api/auth/signIn", data)
             .then(resp => {
               console.log(resp.data);
+              console.log(resp.data.username.realName);
+              this.realname=resp.data.username.realName
             })
             .catch(err => {
               console.log("请求失败：" + err.status + "," + err.statusText);
             });
         });
       });
-    },
-
+    }
   }
 };
 
@@ -110,7 +106,7 @@ var websocket = null;
 
 //判断当前浏览器是否支持WebSocket
 if ("WebSocket" in window) {
-  websocket = new WebSocket("ws://10.21.26.91:5260/websocket");
+  websocket = new WebSocket("ws://localhost:5260/websocket");
 } else {
   alert("Not support websocket");
 }
