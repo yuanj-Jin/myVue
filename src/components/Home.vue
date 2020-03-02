@@ -1,33 +1,38 @@
 <template>
-  <div id="home">
+  <div id="home" style="height:1000px">
     <el-row>
-      <el-col :span="22">
+      <el-col :span="20">
         <div class="grid-content bg-purple">
           <!-- <img src="./assets/logo.png"> -->
           <h1>YuanJing</h1>
-          <button v-on:click="count++">You clicked me {{ count }} times.</button>
+          <el-button v-on:click="count++">You clicked me {{ count }} times.</el-button>
           <br />即时消息对话
           <br />
-          <input id="text" type="text" />
+          <!-- <input id="text" type="text" /> -->
+          <el-input :span="2" id="text" type="text" placeholder="请输入内容" v-model="text" clearable></el-input>
           <el-button @click="send()">按'Enter'键发送消息</el-button>
           <el-button @click="closeWebSocket()">关闭会话</el-button>
-
           <div id="message"></div>
         </div>
       </el-col>
+
+      <el-col :span="2" style="backgroud:red">
+      &nbsp;
+      </el-col>
+
       <!--右侧侧边栏-->
-      <el-col :span="2" style="background:">
-        <div class="grid-content bg-purple-light">
+      <el-col :span="2" >
+        <div class="grid-content bg-purple-light" style=" position: fixed;margin: auto;top:35%">
           <!--右侧侧边栏使用树形菜单-->
-          <div class="manager">
-            <el-radio-group  style="margin-bottom: 20px;">
-              <el-button type="none" @click="goLogin()" icon="el-icon-user-solid">{{realname}}</el-button>
+          <div class="manager"  @mouseenter="enter()" @mouseleave="leave()" :style="sidebarStyle">
+            <el-radio-group style="margin-bottom: 20px;">
+              <el-button type="none" @click="goLogin()" icon="el-icon-user-solid" :style="sidebarStyle">{{realname}}</el-button>
             </el-radio-group>
             <div>
-              <el-button type="none" @click="goManager()">Manager</el-button>
+              <el-button type="none" @click="goManager()" :style="sidebarStyle">Manager</el-button>
             </div>
             <div>
-              <el-button type="none" @click="goRotateAlbum()">Album</el-button>
+              <el-button type="none" @click="goRotateAlbum()" :style="sidebarStyle">Album</el-button>
             </div>
           </div>
         </div>
@@ -37,7 +42,7 @@
 </template>
 
 <script>
-import qs from 'qs'
+import qs from "qs";
 import UserName from "./login/UserName";
 import PassWord from "./login/PassWord";
 export default {
@@ -47,10 +52,17 @@ export default {
   },
   data: function() {
     return {
+      text:"",
       realname: "",
       username: "",
       password: "",
-      count: 0
+      count: 0,
+      sidebarStyle: {
+        width:'10%',
+        // transform: translate(50px,100px);
+        transform: "",
+	      '-webkit-transition':''
+      }
     };
   },
   methods: {
@@ -68,7 +80,7 @@ export default {
       //   path:"/src/templates/login.html"
       // })
     },
-    goRotateAlbum:function(){
+    goRotateAlbum: function() {
       this.$router.push("/album");
     },
     goLogin() {
@@ -91,19 +103,32 @@ export default {
           // }). then((res) =>{
           //   alert("sss")
           // });
-          let data=qs.stringify({passWord: this.password,userName: this.username});
+          let data = qs.stringify({
+            passWord: this.password,
+            userName: this.username
+          });
           this.$axios
             .post("/api/auth/signIn", data)
             .then(resp => {
               console.log(resp.data);
               console.log(resp.data.username.realName);
-              this.realname=resp.data.username.realName
+              this.realname = resp.data.username.realName;
             })
             .catch(err => {
               console.log("请求失败：" + err.status + "," + err.statusText);
             });
         });
       });
+    },
+    enter: function() {
+      this.$data.sidebarStyle.backgroundColor='black';
+      this.$data.sidebarStyle.width='100%';
+      this.$data.sidebarStyle.transition='width 1s';
+    },
+    leave: function() {
+      this.$data.sidebarStyle.backgroundColor='';
+      this.$data.sidebarStyle.width='10%';
+      this.$data.sidebarStyle.transition='width 1s';
     }
   }
 };
