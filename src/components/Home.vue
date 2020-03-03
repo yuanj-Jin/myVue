@@ -22,17 +22,20 @@
 
       <!--右侧侧边栏-->
       <el-col :span="2" >
-        <div class="grid-content bg-purple-light" style=" position: fixed;margin: auto;top:35%">
+        <div class="grid-content bg-purple-light" style=" position: fixed;margin: auto;top:35%" >
           <!--右侧侧边栏使用树形菜单-->
           <div class="manager"  @mouseenter="enter()" @mouseleave="leave()" :style="sidebarStyle">
-            <el-radio-group style="margin-bottom: 20px;">
+            <div style="margin-buttom: 20px;">
               <el-button type="none" @click="goLogin()" icon="el-icon-user-solid" :style="sidebarStyle">{{realname}}</el-button>
-            </el-radio-group>
+            </div>
             <div>
               <el-button type="none" @click="goManager()" :style="sidebarStyle">Manager</el-button>
             </div>
             <div>
               <el-button type="none" @click="goRotateAlbum()" :style="sidebarStyle">Album</el-button>
+            </div>
+            <div>
+              <el-button type="none" @click="goAnime()" :style="sidebarStyle">Anime</el-button>
             </div>
           </div>
         </div>
@@ -53,14 +56,17 @@ export default {
   data: function() {
     return {
       text:"",
-      realname: "",
+      realname: "Login",
       username: "",
       password: "",
       count: 0,
       sidebarStyle: {
-        width:'10%',
+        backgroundColor:'purple',
+        float:'right',
+        width:'30%',
         // transform: translate(50px,100px);
-        transform: "",
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
 	      '-webkit-transition':''
       }
     };
@@ -82,6 +88,9 @@ export default {
     },
     goRotateAlbum: function() {
       this.$router.push("/album");
+    },
+    goAnime:function(){
+      this.$router.push("/anime");
     },
     goLogin() {
       this.$prompt("请输入用户名：", "登录", {
@@ -121,13 +130,13 @@ export default {
       });
     },
     enter: function() {
-      this.$data.sidebarStyle.backgroundColor='black';
+      this.$data.sidebarStyle.backgroundColor='purple';
       this.$data.sidebarStyle.width='100%';
       this.$data.sidebarStyle.transition='width 1s';
     },
     leave: function() {
       this.$data.sidebarStyle.backgroundColor='';
-      this.$data.sidebarStyle.width='10%';
+      this.$data.sidebarStyle.width='30%';
       this.$data.sidebarStyle.transition='width 1s';
     }
   }

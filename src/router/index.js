@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Manager from '../components/system/Manager'
 import Home from '../components/Home'
+
 import App from '@/App'
 import ElementUi from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
@@ -13,6 +14,7 @@ import User from '../components/system/User'
 import UserName from "../components/login/UserName";
 import PassWord from "../components/login/PassWord";
 import RoatateAlbum from "../components/album/RotateAlbum";
+import Anime from "../components/anime/Anime";
 // import '@/theme-et/index.css'
 Vue.use(ElementUi)
 
@@ -66,6 +68,11 @@ export default new Router({
       path: '/album',
       name: 'album',
       component: RoatateAlbum,
+    },
+    {
+      path: '/anime',
+      name: 'anime',
+      component: Anime,
     }
 
     
