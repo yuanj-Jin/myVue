@@ -9,7 +9,7 @@ import axios from 'axios'
 import VueResource from 'vue-resource'
 // import ElementUI from 'elemet-ui'
 // import "element-ui/lib/theme-chalk/index.css"
-
+// axios.defaults.baseURL='http://localhost:5260/'
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios
 Vue.use(VueResource)
